@@ -1,0 +1,108 @@
+# format
+# command_name, command_code, data_type (L11,L16,bit_string,byte,word)
+# ltc address , page , type (WB,WW,SB), command_name , value
+# 0x30,-1,WW,0x36,0xCA00,VIN_OFF 
+#!   COMMAND NAME             :CMD   : TYPE      :PAGED:DA Type: UNITS: EEPROM : DEFAULT VALUE : REF PAGE
+PAGE                          : 0x00 : R/W Byte  :  N  :    Reg:      :        :               : 28 
+OPERATION                     : 0x01 : R/W Byte  :  Y  :    Reg:      :     Y  : 0x00          : 33
+ON_OFF_CONFIG                 : 0x02 : R/W Byte  :  Y  :    Reg:      :     Y  : 0x1E          : 34
+CLEAR_FAULTS                  : 0x03 : Send Byte :  Y  :       :      :        : NA            :  34
+WRITE_PROTECT                 : 0x10 : R/W Byte  :  N  :    Reg:      :     Y  : 0x00          : 28
+STORE_USER_ALL                : 0x15 : Send Byte :  N  :       :      :        : NA            : 35
+RESTORE_USER_ALL              : 0x16 : Send Byte :  N  :       :      :        : NA            : 35
+CAPABILITY                    : 0x19 : R Byte    :  N  :    Reg:      :        : 0xB0          : 35
+VOUT_MODE                     : 0x20 : R Byte    :  Y  :    Reg:      :        : 0x13          : 35
+VOUT_COMMAND                  : 0x21 : R/W Word  :  Y  :    L16:    V :     Y  : 1.0(0x2000)   : 36
+VOUT_MAX                      : 0x24 : R/W Word  :  Y  :    L16:    V :     Y  : 4.0(0x8000)   : 36
+VOUT_MARGIN_HIGH              : 0x25 : R/W Word  :  Y  :    L16:    V :     Y  : 1.05(0x219A)  : 36
+VOUT_MARGIN_LOW               : 0x26 : R/W Word  :  Y  :    L16:    V :     Y  : 0.95(0x1E66)  : 36
+VIN_ON                        : 0x35 : R/W Word  :  N  :    L11:    V :     Y  : 10.0(0xD280)  : 36
+VIN_OFF                       : 0x36 : R/W Word  :  N  :    L11:    V :     Y  : 9.0(0xD240)   : 36
+VOUT_OV_FAULT_LIMIT           : 0x40 : R/W Word  :  Y  :    L16:    V :     Y  : 1.1(0x2333)   : 36
+VOUT_OV_FAULT_RESPONSE        : 0x41 : R/W Byte  :  Y  :    Reg:      :     Y  : 0x80          : 38
+VOUT_OV_WARN_LIMIT            : 0x42 : R/W Word  :  Y  :    L16:    V :     Y  : 1.075(0x2266) : 36
+VOUT_UV_WARN_LIMIT            : 0x43 : R/W Word  :  Y  :    L16:    V :     Y  : 0.925(0x1D9A) : 36
+VOUT_UV_FAULT_LIMIT           : 0x44 : R/W Word  :  Y  :    L16:    V :     Y  : 0.9(0x1CCD)   : 36
+VOUT_UV_FAULT_RESPONSE        : 0x45 : R/W Byte  :  Y  :    Reg:      :     Y  : 0x7F          : 38       
+OT_FAULT_LIMIT                : 0x4F : R/W Word  :  N  :    L11:   °C :     Y  : 105.0(0xEB48) : 37
+OT_FAULT_RESPONSE             : 0x50 : R/W Byte  :  N  :    Reg:      :     Y  : 0xB8          : 39
+OT_WARN_LIMIT                 : 0x51 : R/W Word  :  N  :    L11:   °C :     Y  : 70.0 (0xEA30) : 37
+UT_WARN_LIMIT                 : 0x52 : R/W Word  :  N  :    L11:   °C :     Y  : 0 0x8000      : 37
+UT_FAULT_LIMIT                : 0x53 : R/W Word  :  N  :    L11:   °C :     Y  : –40.0 0xE580  : 37
+UT_FAULT_RESPONSE             : 0x54 : R/W Byte  :  N  :    Reg:      :     Y  : 0xB8          : 39
+VIN_OV_FAULT_LIMIT            : 0x55 : R/W Word  :  N  :    L11:      :     Y  : 15.0 0xD3C0   : 36
+VIN_OV_FAULT_RESPONSE         : 0x56 : R/W Byte  :  N  :    Reg:      :     Y  : 0x80          : 39
+VIN_OV_WARN_LIMIT             : 0x57 : R/W Word  :  N  :    L11:    V :     Y  : 14.0 0xD380   : 36
+VIN_UV_WARN_LIMIT             : 0x58 : R/W Word  :  N  :    L11:    V :     Y  : 0 0x8000      : 36
+VIN_UV_FAULT_LIMIT            : 0x59 : R/W Word  :  N  :    L11:    V :     Y  : 0 0x8000      : 36
+VIN_UV_FAULT_RESPONSE         : 0x5A : R/W Byte  :  N  :    Reg:      :     Y  : 0x00          : 39
+POWER_GOOD_ON                 : 0x5E : R/W Word  :  Y  :    L16:    V :     Y  : 0.96 (0x1EB8) : 36
+POWER_GOOD_OFF                : 0x5F : R/W Word  :  Y  :    L16:    V :     Y  : 0.94 (0x1E14) : 36
+TON_DELAY                     : 0x60 : R/W Word  :  Y  :    L11:   ms :     Y  : 1.0 (0xBA00)  : 37
+TON_RISE                      : 0x61 : R/W Word  :  Y  :    L11:   ms :     Y  : 10.0 (0xD280) : 37
+TON_MAX_FAULT_LIMIT           : 0x62 : R/W Word  :  Y  :    L11:   ms :     Y  : 15.0 (0xD3C0) : 37
+TON_MAX_FAULT_RESPONSE        : 0x63 : R/W Byte  :  Y  :    Reg:      :     Y  : 0xB8          : 40
+TOFF_DELAY                    : 0x64 : R/W Word  :  Y  :    L11:   ms :     Y  : 1.0(0xBA00)   : 37
+STATUS_BYTE                   : 0x78 : R Byte    :  Y  :    Reg:      :        :   NA          : 41
+STATUS_WORD                   : 0x79 : R Word    :  Y  :    Reg:      :        :   NA          : 41
+STATUS_VOUT                   : 0x7A : R Byte    :  Y  :    Reg:      :        :   NA          : 42
+STATUS_INPUT                  : 0x7C : R Byte    :  N  :    Reg:      :        :   NA          : 42
+STATUS_TEMPERATURE            : 0x7D : R Byte    :  N  :    Reg:      :        :   NA          : 42
+STATUS_CML                    : 0x7E : R Byte    :  N  :    Reg:      :        :   NA          : 43
+STATUS_MFR_SPECIFIC           : 0x80 : R Byte    :  Y  :    Reg:      :        :   NA          : 43
+READ_VIN                      : 0x88 : R Word    :  N  :    L11:    V :        :    NA         : 44
+READ_VOUT                     : 0x8B : R Word    :  Y  :    L16:    V :        :    NA         : 44
+READ_TEMPERATURE_1            : 0x8D : R Word    :  N  :    L11:   °C :        :    NA         : 44
+PMBUS_REVISION                : 0x98 : R Byte    :  N  :    Reg:      :        :     0x11      : 44
+USER_DATA_00                  : 0xB0 : R/W Word  :  N  :    Reg:      :      Y :           NA  : 60
+USER_DATA_01                  : 0xB1 : R/W Word  :  Y  :    Reg:      :      Y :           NA  : 60
+USER_DATA_02                  : 0xB2 : R/W Word  :  N  :    Reg:      :      Y :           NA  : 60
+USER_DATA_03                  : 0xB3 : R/W Word  :  Y  :    Reg:      :      Y : 0x00          : 60
+USER_DATA_04                  : 0xB4 : R/W Word  :  N  :    Reg:      :      Y : 0x00          : 60
+MFR_LTC_RESERVED_1            : 0xB5 : R/W Word  :  Y  :    Reg:      :      Y : NA            : 60
+MFR_INFO                      : 0xB6 : R Word    :  N  :    Reg:      :        : NA            : 58
+MFR_STATUS_2                  : 0xB7 : R Word    :  Y  :    Reg:      :        :  NA           : 61
+MFR_LTC_RESERVED_2            : 0xBC : R/W Word  :  Y  :    Reg:      :        :  NA           : 60
+MFR_EE_UNLOCK                 : 0xBD : R/W Byte  :  N  :    Reg:      :        :  NA           : 64
+MFR_EE_ERASE                  : 0xBE : R/W Byte  :  N  :    Reg:      :        :  NA           : 64
+MFR_EE_DATA                   : 0xBF : R/W Word  :  N  :    Reg:      :        :  NA           : 64
+MFR_COMMAND_PLUS              : 0xC0 : R/W Word  :  N  :    Reg:      :        :  NA           : 30
+MFR_DATA_PLUS0                : 0xC1 : R/W Word  :  N  :    Reg:      :        :  NA           : 30
+MFR_DATA_PLUS1                : 0xC2 : R/W Word  :  N  :    Reg:      :        :  NA           : 30
+MFR_TELEMETRY                 : 0xCF : R Block   :  N  :    Reg:      :        :  NA           : 62
+MFR_CONFIG_LTC2977            : 0xD0 : R/W Word  :  Y  :    Reg:      :      Y :0x0080         : 45
+MFR_CONFIG_ALL_LTC2977        : 0xD1 : R/W Word  :  N  :    Reg:      :      Y :0x1C7B         : 49
+MFR_FAULTBz0_PROPAGATE        : 0xD2 : R/W Byte  :  Y  :    Reg:      :      Y :0x00           : 50
+MFR_FAULTBz1_PROPAGATE        : 0xD3 : R/W Byte  :  Y  :    Reg:      :      Y :0x00           : 50
+MFR_PWRGD_EN                  : 0xD4 : R/W Word  :  N  :    Reg:      :      Y :0x0000         : 51
+MFR_FAULTB00_RESPONSE         : 0xD5 : R/W Byte  :  N  :    Reg:      :      Y :0x00           : 52
+MFR_FAULTB01_RESPONSE         : 0xD6 : R/W Byte  :  N  :    Reg:      :      Y :0x00           : 52
+MFR_FAULTB10_RESPONSE         : 0xD7 : R/W Byte  :  N  :    Reg:      :      Y :0x00           : 52
+MFR_FAULTB11_RESPONSE         : 0xD8 : R/W Byte  :  N  :    Reg:      :      Y :0x00           : 52
+MFR_VINEN_OV_FAULT_RESPONSE   : 0xD9 : R/W Byte  :  N  :    Reg:      :      Y :0x00           : 53
+MFR_VINEN_UV_FAULT_RESPONSE   : 0xDA : R/W Byte  :  N  :    Reg:      :      Y :0x00           : 54
+MFR_RETRY_DELAY               : 0xDB : R/W Word  :  N  :    L11:   ms :      Y :200.00xF320    : 55
+MFR_RESTART_DELAY             : 0xDC : R/W Word  :  N  :    L11:   ms :      Y :400.0 0xFB20   : 55
+MFR_VOUT_PEAK                 : 0xDD : R Word    :  Y  :    L16:    V :        : NA            : 56
+MFR_VIN_PEAK                  : 0xDE : R Word    :  N  :    L11:    V :        :  NA           : 56
+MFR_TEMPERATURE_PEAK          : 0xDF : R Word    :  N  :    L11:   °C :        :  NA           : 56
+MFR_DAC                       : 0xE0 : R/W Word  :  Y  :    Reg:      :        :               : 
+MFR_POWERGOOD_ASSERTION_DELAY : 0xE1 : R/W Word  :  N  :    L11:   ms :      Y :100.0 (0xEB20) : 57
+MFR_WATCHDOG_T_FIRST          : 0xE2 : R/W Word  :  N  :    L11:   ms :      Y :0 0x8000       : 63
+MFR_WATCHDOG_T                : 0xE3 : R/W Word  :  N  :    L11:   ms :      Y :0 0x8000       : 63
+MFR_PAGE_FF_MASK              : 0xE4 : R/W Byte  :  N  :    Reg:      :      Y :0xFF           : 29  
+MFR_PADS                      : 0xE5 : R Word    :     :       :      :        :NA             : 57
+MFR_I2C_BASE_ADDRESS          : 0xE6 : R/W Byte  :  N  :    Reg:      :      Y :0x5C           : 30
+MFR_SPECIAL_ID                : 0xE7 : R Word    :  N  :    Reg:      :      Y :0x0131         : 58
+MFR_SPECIAL_LOT               : 0xE8 : R Byte    :  Y  :    Reg:      :      Y :NA             : 58
+MFR_VOUT_DISCHARGE_THRESHOLD  : 0xE9 : R/W Word  :  Y  :    L11:      :      Y :2.0 (0xC200)   : 59
+MFR_FAULT_LOG_STORE           : 0xEA : Send Byte :  N  :       :      :        : NA            : 65
+MFR_FAULT_LOG_RESTORE         : 0xEB : Send Byte :  N  :       :      :        :  NA           : 65
+MFR_FAULT_LOG_CLEAR           : 0xEC : Send Byte :  N  :       :      :        : NA            : 66
+MFR_FAULT_LOG_STATUS          : 0xED : R Byte    :  N  :    Reg:      :      Y :NA             : 66
+MFR_FAULT_LOG                 : 0xEE : R Block   :  N  :    Reg:      :      Y : NA            : 67
+MFR_COMMON                    : 0xEF : R Byte    :  N  :    Reg:      :        : NA            : 59
+MFR_RETRY_COUNT               : 0xF7 : R/W Byte  :  N  :    Reg:      :        : 0x07          : 55
+MFR_VOUT_MIN                  : 0xFB : R Word    :  Y  :    L16:    V :        : NA            : 60
+MFR_VIN_MIN                   : 0xFC : R Word    :  N  :    L11:    V :        : NA            : 60
+MFR_TEMPERATURE_MIN           : 0xFD : R Word    :  N  :    L11:   °C :        : NA            : 61
