@@ -5,10 +5,10 @@
 #include <Wire.h>
 #include <math.h> 
 #include <Arduino.h>
-#include "FEB_lib.h"
+#include "LTC2977_duino.h"
 /*--------------------------------------------------------------------------------------------------------*/
 /*
- * Utility function usefull for debug
+ * Utility function useful for debug
  */
 /*--------------------------------------------------------------------------------------------------------*/
 
@@ -54,7 +54,7 @@ void ScanI2CBus(uint8_t start_addr, uint8_t end_addr) {
         Serial.println(" - Other Error");
         break;
     }
-    delay(100);
+    delay(300);
   }
 }
 
@@ -98,6 +98,7 @@ float read_READ_VOUT_Values(uint8_t address,uint8_t command) {
 */ 
 uint16_t extract_bits_from_value(uint16_t val, uint8_t start, uint8_t length){
   // extract bit sequence from val from position start to start+length
+  
   return (val >> start) & (uint16_t) (pow(2.0, length) -1);
 }
 // -------
@@ -106,6 +107,87 @@ int16_t two_complement(uint16_t val, uint8_t length){
     return val - (uint16_t) pow(2.0, length);
   } else {
     return val;
+  }
+}
+
+
+void print_word_in_bits(uint16_t num)
+{
+   for(int bit=0;bit<(sizeof(uint16_t) * 8); bit++)
+   {
+     Serial.print(num & 0x01);
+      num = num >> 1;
+   }
+}
+/*
+I2C functions
+*/
+
+void scanI2C(uint8_t start, uint8_t stop){
+  bool is_next = false;
+  for (uint8_t address = start; address <= stop ; address++) {
+    Wire.beginTransmission(address);
+    Wire.write(0);
+    if ( Wire.endTransmission()==0){
+      Serial.print((is_next)?":":"");
+      is_next = true;
+      Serial.print(address);
+    }
+  }
+  Serial.println();
+}
+
+uint8_t I2C_Send(uint8_t address){
+  Wire.beginTransmission(address);
+  Wire.write(0);
+  return Wire.endTransmission();
+}
+
+uint8_t I2C_Write(uint8_t n, char **values){
+  if (n > 2){
+    uint8_t address = (uint8_t)strtol(values[1], NULL, 0);
+    Wire.beginTransmission(address);
+    for (uint8_t i = 2 ; i < n ;i++){
+       Wire.write((uint8_t)strtol(values[i], NULL, 0));
+    }
+    return Wire.endTransmission();
+  }
+}
+
+uint8_t I2C_ReadByte(uint8_t n, char **values){
+  uint8_t retval;
+  if (n > 2){
+    uint8_t addr = (uint8_t)strtol(values[1], NULL, 0);
+
+    Wire.beginTransmission(addr);
+    for (uint8_t i = 2 ; i < n ;i++){
+       Wire.write((uint8_t)strtol(values[i], NULL, 0));
+    }
+    Wire.endTransmission(false);
+    Wire.requestFrom(addr,(uint8_t) 1);
+    if (1 <= Wire.available()){
+      retval =  Wire.read();
+    }
+    return retval;
+  }
+}
+
+uint16_t I2C_ReadWord(uint8_t n, char **values){
+  uint16_t retval;
+  if (n > 2){
+    uint8_t addr = (uint8_t)strtol(values[1], NULL, 0);
+
+    Wire.beginTransmission(addr);
+    for (uint8_t i = 2 ; i < n ;i++){
+       Wire.write((uint8_t)strtol(values[i], NULL, 0));
+    }
+    Wire.endTransmission(false);
+    Wire.requestFrom(addr,(uint8_t) 1);
+    if (1 <= Wire.available()){
+      retval =  Wire.read();
+      retval |= Wire.read() << 8; // shift high byte to be high 8 bits
+    }
+    return retval;
   }
 }
 

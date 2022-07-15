@@ -1,6 +1,4 @@
-#include <FEB_lib.h>
-
-
+#include <LTC2977_duino.h>
 
 #include <stdint.h>
 #include <Wire.h>
@@ -28,7 +26,7 @@
 #define MAX_PAGE 8
 
 // the library is in the libraries directory in ~/Work/SFGD/supervisor
-#include "FEB_lib.h"
+//#include "FEB_lib.h"
 
 void configureLTC(uint8_t ltc_1, uint8_t ltc_2);
 

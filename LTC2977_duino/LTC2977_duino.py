@@ -1,14 +1,15 @@
 #! coding: utf-8
 
 import serial
-import sys
+import sys, os
 import time
+sys.path.append(os.path.dirname(__file__))
 import binary_utils
 import xml.etree.ElementTree as ET
 
 desc_file="ltc2977.desc"
 
-class feb_serial(object):
+class LTC2977_duino(object):
     type_convert = {
         "R/W Byte"  : "WB",
         "R Byte"    : "WB",
@@ -83,10 +84,10 @@ class feb_serial(object):
     ]
     
 
-    def __init__(self,port="/dev/ttyUSB0",baudrate=115900,timeout=5):
+    def __init__(self, port="/dev/ttyUSB0", baudrate=115900, timeout=5):
 
         try:
-            self.ser = serial.Serial(port=port,baudrate=baudrate,timeout=timeout)
+            self.ser = serial.Serial(port=port, baudrate=baudrate, timeout=timeout)
         except Exception as e:
             print("Couldn't open serial connection\nError: %s\nAborting" % e)
             sys.exit(0)
@@ -287,7 +288,8 @@ class feb_serial(object):
                     print("%s,%s,%s,%s,%s,%s" % (addr,page,le,cmd,r.attrib['hex'],self.description_cmd_code[cmd]['name']))
 
 if __name__== "__main__":
-    fs = feb_serial()
+    fs = LTC2977_duino()
+    fs.scan()
     #fs.description.keys()
     #    print(fs.raw_read("0x33,1,WB,0x01"))
     #    print(fs.raw_write("0x33,-1,WB,0x01,0x80"))
@@ -296,4 +298,4 @@ if __name__== "__main__":
     #fs.write("0x33,0,WW,0x21,1.22")
     #print(fs.raw_read("0x33,0,WW,0x21"))
 
-    fs.dump_proj(0x33)
+    #fs.dump_proj(0x33)
