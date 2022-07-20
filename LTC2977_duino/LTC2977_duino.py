@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(__file__))
 import binary_utils
 import xml.etree.ElementTree as ET
 
-desc_file="ltc2977.desc"
+desc_file = os.path.join(os.path.dirname(__file__), "ltc2977.desc")
 
 class LTC2977_duino(object):
     type_convert = {
@@ -154,50 +154,55 @@ class LTC2977_duino(object):
     def store(self):
         self.__write("store")
         return self.__read()
-        
+
+#read:48,0,WW,0x8B
+
 
     # write read function    
-    def raw_write(self,data):
-        self.__write("write:"+data)
+    def raw_write(self, data):
+        self.__write(data)
         #time.sleep(.1)
         return self.__read()
                 
-    def raw_read(self,data):
+    def raw_read(self, data):
         self.__write("read:"+data)
         #time.sleep(.1)
         return self.__read()
     
     def i2c_write(self, address, *values):
-        self.__write("i2c_write:%d,%s" % (address,",".join(["%d"%i for i in values])))
+        self.__write("i2c_write:%d,%s" % (address,",".join(["%d" % i for i in values])))
         return self.__read()
 
-    def i2c_read(self, address, *values):
-        self.__write("i2c_read:%d,%s" % (address,",".join(["%d"%i for i in values])))
+    def i2c_readbyte(self, address, *values):
+        self.__write("i2c_readbyte:%d,%s" % (address, ",".join(["%d" % i for i in values])))
         return self.__read()
 
+    def i2c_readword(self, address, *values):
+        self.__write("i2c_readword:%d,%s" % (address, ",".join(["%d" % i for i in values])))
+        return self.__read()
 
-    def write(self,ltc,page,cmd,value):
-        d = self.description_cmd_name[cmd]
+    def write(self, ltc, page, cmd, value):
+        d = self.description_cmd_name.get(cmd)
         if not d:
             return "error: %s is unknow" % cmd
         value = self.__wconvert(d['dataformat'], value)
         self.__write("write:%d,%d,%s,%s,%d" % (ltc, page, d['type'], d['code'], value))
         return self.__read()
 
-    def read(self,ltc,page,cmd):
-        d = self.description_cmd_name[cmd]
+    def read(self, ltc, page, cmd):
+        d = self.description_cmd_name.get(cmd)
         if not d:
             return "error: %s is unknow" % cmd
-        self.__write("read:%d,%d,%s,%s" % (ltc,page,d['type'],d['code']))
+        self.__write("read:%d,%d,%s,%s" % (ltc, page, d['type'], d['code']))
         #time.sleep(.1)
         retval = self.__read()
         return int(retval)
 
-    def read_h(self,ltc,page,cmd):
-        d = self.description_cmd_name[cmd]
+    def read_h(self, ltc, page, cmd):
+        d = self.description_cmd_name.get(cmd)
         if not d:
             return "error: %s is unknow" % cmd
-        self.__write("read:%d,%d,%s,%s" % (ltc,page,d['type'],d['code']))
+        self.__write("read:%d,%d,%s,%s" % (ltc, page, d['type'], d['code']))
         #time.sleep(.1)
         retval = self.__read()
         return self.__convert(d['dataformat'], retval)

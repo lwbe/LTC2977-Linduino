@@ -173,19 +173,20 @@ uint8_t I2C_ReadByte(uint8_t n, char **values){
 }
 
 uint16_t I2C_ReadWord(uint8_t n, char **values){
-  uint16_t retval;
+  uint16_t retval, retval2;
   if (n > 2){
     uint8_t addr = (uint8_t)strtol(values[1], NULL, 0);
 
     Wire.beginTransmission(addr);
     for (uint8_t i = 2 ; i < n ;i++){
-       Wire.write((uint8_t)strtol(values[i], NULL, 0));
+       Wire.write((uint8_t) strtol (values[i], NULL, 0));
     }
     Wire.endTransmission(false);
-    Wire.requestFrom(addr,(uint8_t) 1);
+    Wire.requestFrom(addr,(uint8_t) 2);
     if (1 <= Wire.available()){
       retval =  Wire.read();
-      retval |= Wire.read() << 8; // shift high byte to be high 8 bits
+      retval2 =  Wire.read();
+      retval |= retval2 << 8; // shift high byte to be high 8 bits
     }
     return retval;
   }

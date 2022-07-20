@@ -215,7 +215,7 @@ int alert_pin = 9;
 
 
 #define MAX_KEYWORDS 11
-char *keywords[MAX_KEYWORDS]= {"i2c_send","i2c_write","i2c_read","i2c_readword","scan","write","read","alert","clear_faults","store","read_values"};
+char *keywords[MAX_KEYWORDS]= {"i2c_send","i2c_write","i2c_readbyte","i2c_readword","scan","write","read","alert","clear_faults","store","read_values"};
 
 bool checkKeyword(char *kw){
   for (uint8_t i = 0; i<MAX_KEYWORDS ; i++){
@@ -326,33 +326,50 @@ void loop() {
        *   keyword : i2c_readword
        ---------------------------------------------------------------*/
       } else if (strcmp(command[0],"i2c_readword") == 0){
-
+        /* Serial.print(iw);
+        for (uint8_t i = 0 ; i < iw ; i++){
+          Serial.print(" , ");
+          Serial.print(command[i]);
+        } 
+        Serial.print(" ");*/
         Serial.println(I2C_ReadWord(iw,command));
 
       /*---------------------------------------------------------------
        *   keyword : write
        ---------------------------------------------------------------*/
       } else if (strcmp(command[0],"write") == 0){
+
+        if (iw == 6){
         
-        uint8_t i2c =      (uint8_t)strtol(command[1], NULL, 0); 
-        uint8_t page =     (uint8_t)strtol(command[2], NULL, 0);
-        uint8_t type = getType(command[3]);
-        uint8_t cmd_code = (uint8_t)strtol(command[4], NULL, 0);
-        uint16_t value =  (uint16_t)strtol(command[5], NULL, 0);
+          uint8_t i2c =      (uint8_t)strtol(command[1], NULL, 0); 
+          uint8_t page =     (uint8_t)strtol(command[2], NULL, 0);
+          uint8_t type = getType(command[3]);
+          uint8_t cmd_code = (uint8_t)strtol(command[4], NULL, 0);
+          uint16_t value =  (uint16_t)strtol(command[5], NULL, 0);
         
-        writeToLTC(i2c, page, type, cmd_code, value);
-        Serial.println("ok");
+          writeToLTC(i2c, page, type, cmd_code, value);
+          Serial.println("ok");
+        } else {
+          Serial.print("ERR:write:wrong number of args expect 5 got ");
+          Serial.println(iw - 1);
+        }
       /*---------------------------------------------------------------        
        *   keyword : read
        ---------------------------------------------------------------*/
       } else if (strcmp(command[0],"read") == 0){
+        if (iw == 5){
         
-        uint8_t i2c =      (uint8_t)strtol(command[1], NULL, 0); 
-        uint8_t page =     (uint8_t)strtol(command[2], NULL, 0);
-        uint8_t type = getType(command[3]);
-        uint8_t cmd_code = (uint8_t)strtol(command[4], NULL, 0);
+          uint8_t i2c =      (uint8_t)strtol(command[1], NULL, 0); 
+          uint8_t page =     (uint8_t)strtol(command[2], NULL, 0);
+          uint8_t type = getType(command[3]);
+          uint8_t cmd_code = (uint8_t)strtol(command[4], NULL, 0);
         
-        Serial.println(readFromLTC(i2c, page, type, cmd_code));
+          Serial.println(readFromLTC(i2c, page, type, cmd_code));
+        } else {
+          Serial.print("ERR:read:wrong number of args expect 4 got ");
+          Serial.println(iw - 1);
+        }
+
       /*---------------------------------------------------------------
        *   keyword: scan 
        ---------------------------------------------------------------*/

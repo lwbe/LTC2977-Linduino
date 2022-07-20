@@ -31,7 +31,8 @@ sketch and go to the menu
     Sketch -> Include Library -> Add .ZIP library
 
 Then navigate to the folder containing the library here we go to **Arduino/libraries/LTC2977_duino/** 
-and then click Ok.
+and then click Ok. The library will be copied in **~/Arduino/libraries/LTC2977_duino/** and you need to overwrite the files
+there if you make modification.
 
 #### upgrade library
 
@@ -52,6 +53,11 @@ through the **Tools** menu.
 Once this is done we can use the python script to communicate with the LTC.
 
 
-## 
+## Python
+
+To install the python module you need to install the module, preferably in a virtualenv, using:
+
+    python ./setup.py install
+
 
 
