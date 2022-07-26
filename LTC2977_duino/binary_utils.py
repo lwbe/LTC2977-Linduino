@@ -55,7 +55,7 @@ def FloatToL11(f):
         exponent += 1
         mantissa = int(f /(2**exponent))
 
-    return ("0x%s" % struct.pack(">h",(exponent << 11) + mantissa).hex())
+    return int("0x%s" % struct.pack(">h",(exponent << 11) + mantissa).hex(), 0)
 
 
 

@@ -129,9 +129,9 @@ class LTC2977_duino(object):
 
     def __convert(self,dataformat,v):
         if dataformat == 'L11':
-            return binary_utils.L11ToFloat(int(v))
+            return binary_utils.L11ToFloat(int(v, 0))
         elif dataformat == 'L16':
-            return binary_utils.L16ToFloat(int(v))
+            return binary_utils.L16ToFloat(int(v, 0))
         else:
             return int(v)
 
@@ -182,6 +182,14 @@ class LTC2977_duino(object):
         return self.__read()
 
     def write(self, ltc, page, cmd, value):
+        d = self.description_cmd_name.get(cmd)
+        if not d:
+            return "error: %s is unknow" % cmd
+        self.__write("write:%d,%d,%s,%s,%d" % (ltc, page, d['type'], d['code'], value))
+        return self.__read()
+
+    
+    def write_h(self, ltc, page, cmd, value):
         d = self.description_cmd_name.get(cmd)
         if not d:
             return "error: %s is unknow" % cmd
