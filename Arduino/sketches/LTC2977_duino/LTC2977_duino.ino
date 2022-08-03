@@ -267,7 +267,7 @@ uint8_t getType( char* t){
 void setup() {
 
   //! Initialize the serial port to the PC
-  Serial.begin(115800);
+  Serial.begin(115200);
   Wire.begin();
   pinMode(alert_pin, INPUT);
 }
