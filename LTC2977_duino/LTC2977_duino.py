@@ -151,11 +151,9 @@ class LTC2977_duino(object):
         self.__write("clear_faults")
         return self.__read()
 
-    def store(self):
-        self.__write("store")
-        return self.__read()
-
-#read:48,0,WW,0x8B
+#    def store(self):
+#        self.__write("store")
+#        return self.__read()
 
 
     # write read function    
@@ -215,6 +213,16 @@ class LTC2977_duino(object):
         retval = self.__read()
         return self.__convert(d['dataformat'], retval)
 
+# Shortcuts to some commands
+    def store(self,ltc):
+        self.__write("i2c_write:%d,21" % (ltc))  # corresponds to 0x15 STORE_USER_ALL
+        return self.__read()
+    
+    def restore(self,ltc):
+        self.__write("i2c_write:%d,22" % (ltc))  # corresponds to 0x16 RESTORE_USER_ALL
+        return self.__read()
+    
+# utilities
     def dump_txt(self,ltc_i2c):
         """
         dump the values of the ltc following the .txt file of the LTPowerPlay
@@ -268,7 +276,8 @@ class LTC2977_duino(object):
         with open(filename, 'r', encoding='utf-8') as infile:
             for line in infile:
                 if not line.startswith("#"):
-                    self.write(*line.strip().split(","))
+                    l,p,c,v = line.strip().split(",")
+                    self.write(int(l,0), int(p,0), c, int(v,0))
                     time.sleep(0.1)
 
     def load_from_txt(self,filename):
