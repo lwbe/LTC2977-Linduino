@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
       name='LTC2977_duino',
-      version='0.2.2',
+      version='0.2.3',
       description='Module to interact with LTM2877 through Linduino',
       author='Lorenzo Bernardi',
       author_email='bernardi@llr.in2p3.fr',

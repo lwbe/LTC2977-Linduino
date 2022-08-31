@@ -40,6 +40,8 @@ class LTC2977_duino(object):
         'USER_DATA_04',
         'MFR_CONFIG_ALL_LTC2977',
         'MFR_PWRGD_EN',                 #_LTC2978',
+        'MFR_FAULTB00_RESPONSE',        #_LTC2978',
+        'MFR_FAULTB01_RESPONSE',        # _LTC2978',
         'MFR_FAULTB10_RESPONSE',        #_LTC2978',
         'MFR_FAULTB11_RESPONSE',        # _LTC2978',
         'MFR_VINEN_OV_FAULT_RESPONSE',  #__LTC2978',
